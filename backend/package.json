@@ -1,0 +1,32 @@
+{
+  "name": "aussie-property-tracker-backend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build":      "esbuild src/functions/**/*.ts --bundle --platform=node --target=node20 --outdir=dist --external:@aws-sdk/*",
+    "type-check": "tsc --noEmit",
+    "test":       "node --experimental-vm-modules node_modules/.bin/jest",
+    "test:lambda": "ts-node -e \"require('./src/functions/otp-request').handler(require('./test/events/otp-request.json'))\"",
+    "lint":       "eslint . --ext .ts"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb":           "^3.600.0",
+    "@aws-sdk/lib-dynamodb":              "^3.600.0",
+    "@aws-sdk/client-sns":                "^3.600.0",
+    "@aws-sdk/client-apigatewaymanagementapi": "^3.600.0",
+    "bcryptjs":   "^2.4.3",
+    "jsonwebtoken":"^9.0.2"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.140",
+    "@types/bcryptjs":   "^2.4.6",
+    "@types/jsonwebtoken":"^9.0.6",
+    "@types/node":       "^20.14.2",
+    "@typescript-eslint/eslint-plugin": "^7.13.1",
+    "@typescript-eslint/parser":        "^7.13.1",
+    "esbuild":   "^0.21.5",
+    "eslint":    "^8.57.0",
+    "ts-node":   "^10.9.2",
+    "typescript":"^5.4.5"
+  }
+}

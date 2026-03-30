@@ -1,0 +1,34 @@
+# dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# env files - NEVER commit these
+.env
+.env.local
+.env.*.local
+
+# build outputs
+dist/
+build/
+cdk.out/
+*.js.map
+
+# AWS CDK
+cdk.out/
+*.d.ts
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/settings.json
+.idea/
+
+# logs
+*.log
+npm-debug.log*
+
+# test coverage
+coverage/
