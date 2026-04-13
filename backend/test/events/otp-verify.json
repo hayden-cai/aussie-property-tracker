@@ -1,0 +1,7 @@
+{
+  "httpMethod": "POST",
+  "path": "/auth/verify-otp",
+  "headers": { "Content-Type": "application/json" },
+  "body": "{\"phone\": \"+61412345678\", \"code\": \"123456\"}",
+  "isBase64Encoded": false
+}

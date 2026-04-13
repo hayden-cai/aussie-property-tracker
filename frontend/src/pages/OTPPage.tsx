@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-// TODO: import { verifyOTP } from '@/api/auth' — re-enable when backend is ready
+import { verifyOTP } from '@/api/auth'
 import { useAuthStore } from '@/hooks/useAuthStore'
 
 const OTP_LENGTH = 6
@@ -94,9 +94,15 @@ export function OTPPage() {
       setIsLoading(true)
       setError('')
 
-      // TODO: replace mock token with real API call when backend is ready
-      setAuth('mock-token', phone)
-      navigate('/verified')
+      try {
+        const { token } = await verifyOTP(phone, otp.join(''))
+        setAuth(token, phone)
+        navigate('/verified')
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Verification failed')
+      } finally {
+        setIsLoading(false)
+      }
     },
     [otp, isLoading, navigate, phone, setAuth]
   )

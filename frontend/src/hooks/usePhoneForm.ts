@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
-// TODO: import { requestOTP } from '@/api/auth' — re-enable when backend is ready
+import { requestOTP } from '@/api/auth'
 import { normalisePhone } from '@/utils/format'
 
 const phoneSchema = z.object({
@@ -26,7 +26,7 @@ interface UsePhoneFormReturn {
 export function usePhoneForm(): UsePhoneFormReturn {
   const navigate = useNavigate()
   const [phone, setPhoneRaw] = useState('')
-  const [loading] = useState(false)
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   const setPhone = useCallback((value: string) => {
@@ -46,16 +46,15 @@ export function usePhoneForm(): UsePhoneFormReturn {
       }
 
       const normalised = result.data.phone
-      // TODO: re-enable when backend is ready
-      // setLoading(true)
-      // try {
-      //   await requestOTP(normalised)
-      // } catch (err) {
-      //   setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
-      //   setLoading(false)
-      //   return
-      // }
-      // setLoading(false)
+      setLoading(true)
+      try {
+        await requestOTP(normalised)
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
+        setLoading(false)
+        return
+      }
+      setLoading(false)
       navigate('/otp', { state: { phone: normalised } })
     },
     [phone, navigate]
