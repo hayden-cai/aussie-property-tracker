@@ -49,12 +49,13 @@ export function usePhoneForm(): UsePhoneFormReturn {
       setLoading(true)
       try {
         await requestOTP(normalised)
-        navigate('/otp', { state: { phone: normalised } })
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
-      } finally {
         setLoading(false)
+        return
       }
+      setLoading(false)
+      navigate('/otp', { state: { phone: normalised } })
     },
     [phone, navigate]
   )

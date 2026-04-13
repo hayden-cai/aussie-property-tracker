@@ -1,0 +1,7 @@
+{
+  "httpMethod": "POST",
+  "path": "/auth/request-otp",
+  "headers": { "Content-Type": "application/json" },
+  "body": "{\"phone\": \"+61412345678\"}",
+  "isBase64Encoded": false
+}
